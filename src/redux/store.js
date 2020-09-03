@@ -1,12 +1,14 @@
-import { createStore, applyMiddleware } from "redux";
+import { createStore, applyMiddleware, combineReducers } from "redux";
 import { composeWithDevTools } from "redux-devtools-extension";
 import contactsReducer from "./contacts/contactsReducer";
+import thunk from "redux-thunk";
 
-const middleware = [];
+const rootReducer = combineReducers({
+  contacts: contactsReducer
+});
 
-const store = createStore(
-  contactsReducer,
-  composeWithDevTools(applyMiddleware(...middleware))
-);
+const middleware = [thunk];
+
+const store = createStore(rootReducer, composeWithDevTools(applyMiddleware(...middleware)));
 
 export default store;

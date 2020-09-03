@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Component } from "react";
 import ContactForm from "./contactForm/ContactForm";
 import ContactsList from "./contactsList/ContactsList";
 import Filter from "./filter/Filter";
@@ -7,36 +7,41 @@ import styles from "./App.module.css";
 import Alert from "./Alert/Alert";
 import { connect } from "react-redux";
 import actions from "../redux/contacts/contactsActions";
+import operations from "../redux/operations/operations";
 
-function App({ items, alert }) {
-  return (
-    <>
-      <Alert alert={alert} />
-      <CSSTransition
-        in={true}
-        timeout={500}
-        classNames={styles}
-        appear={true}
-        unmountOnExit
-      >
-        <p className={styles.sectionTitle}> Phonebook </p>
-      </CSSTransition>
-      <ContactForm />
-      {items.length > 1 && <Filter />}
-      <ContactsList />
-    </>
-  );
+class App extends Component {
+  componentDidMount() {
+    this.props.onFetchContact();
+  }
+
+  render() {
+    return (
+      <>
+        <Alert alert={alert} />
+        <CSSTransition in={true} timeout={500} classNames={styles} appear={true} unmountOnExit>
+          <p className={styles.sectionTitle}> Phonebook </p>
+        </CSSTransition>
+        <ContactForm />
+        {this.props.items.length > 1 && <Filter />}
+        <ContactsList />
+      </>
+    );
+  }
 }
 
-const mapStateToProps = (state) => {
+const mapStateToProps = state => {
   console.log(state);
   return {
-    items: state.contacts.items,
+    items: state.contacts.items
   };
 };
 
-const mapDispatchToProps = (dispatch) => ({
-  onChangeFilter: (filter) => dispatch(actions.changeFilter(filter)),
+const mapDispatchToProps = dispatch => ({
+  onChangeFilter: filter => dispatch(actions.changeFilter(filter)),
+  onFetchContact: () => dispatch(operations.onFetchContacts())
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(App);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(App);

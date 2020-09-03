@@ -1,30 +1,49 @@
 import { v4 as uuidv4 } from "uuid";
 import actionTypes from "./contactsActionTypes";
 
-const addContactRequest = (contact) => {
+const addContactRequest = () => {
   return {
-    type: actionTypes.ADD_CONTACT_REQUEST,
-    payload: {
-      ...contact,
-    },
+    type: actionTypes.ADD_CONTACT_REQUEST
   };
 };
 
-const addContactSuccess = (contact) => {
+const addContactSuccess = contact => {
   return {
     type: actionTypes.ADD_CONTACT_SUCCESS,
     payload: {
-      ...contact,
-    },
+      ...contact
+    }
   };
 };
 
-const addContactError = (contact) => {
+const addContactError = contact => {
   return {
     type: actionTypes.ADD_CONTACT_ERROR,
     payload: {
-      ...contact,
-    },
+      ...contact
+    }
+  };
+};
+
+const fetchContactRequest = () => {
+  return {
+    type: actionTypes.FETCH_CONTACT_REQUEST
+  };
+};
+
+const fetchContactSuccess = contacts => {
+  return {
+    type: actionTypes.FETCH_CONTACT_SUCCESS,
+    payload: contacts
+  };
+};
+
+const fetchContactError = contact => {
+  return {
+    type: actionTypes.FETCH_CONTACT_ERROR,
+    payload: {
+      ...contact
+    }
   };
 };
 
@@ -33,22 +52,22 @@ const addContact = ({ name, number }) => ({
   payload: {
     id: uuidv4(),
     name,
-    number,
-  },
+    number
+  }
 });
 
-const deleteContact = (id) => ({
+const deleteContact = id => ({
   type: actionTypes.DELETE,
-  payload: { id },
+  payload: { id }
 });
 
-const changeFilter = (filter) => ({
+const changeFilter = filter => ({
   type: actionTypes.FILTER,
-  payload: { filter },
+  payload: { filter }
 });
 
 const showAlert = () => ({
-  type: actionTypes.ALERT,
+  type: actionTypes.ALERT
 });
 
 export default {
@@ -59,4 +78,7 @@ export default {
   addContactRequest,
   addContactSuccess,
   addContactError,
+  fetchContactRequest,
+  fetchContactSuccess,
+  fetchContactError
 };
