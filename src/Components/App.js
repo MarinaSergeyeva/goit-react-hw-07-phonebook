@@ -18,7 +18,13 @@ class App extends Component {
     return (
       <>
         <Alert alert={alert} />
-        <CSSTransition in={true} timeout={500} classNames={styles} appear={true} unmountOnExit>
+        <CSSTransition
+          in={true}
+          timeout={500}
+          classNames={styles}
+          appear={true}
+          unmountOnExit
+        >
           <p className={styles.sectionTitle}> Phonebook </p>
         </CSSTransition>
         <ContactForm />
@@ -29,19 +35,16 @@ class App extends Component {
   }
 }
 
-const mapStateToProps = state => {
-  console.log(state);
+const mapStateToProps = (state) => {
+  // console.log(state);
   return {
-    items: state.contacts.items
+    items: state.contacts.items,
   };
 };
 
-const mapDispatchToProps = dispatch => ({
-  onChangeFilter: filter => dispatch(actions.changeFilter(filter)),
-  onFetchContact: () => dispatch(operations.onFetchContacts())
+const mapDispatchToProps = (dispatch) => ({
+  onChangeFilter: (filter) => dispatch(actions.changeFilter(filter)),
+  onFetchContact: () => dispatch(operations.onFetchContacts()),
 });
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(App);
+export default connect(mapStateToProps, mapDispatchToProps)(App);

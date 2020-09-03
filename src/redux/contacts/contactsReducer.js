@@ -9,8 +9,11 @@ const items = (state = [], action) => {
     case actionTypes.FETCH_CONTACT_SUCCESS:
       return action.payload;
 
-    case actionTypes.DELETE:
-      return state.filter(contact => contact.id !== action.payload.id);
+    case actionTypes.REMOVE_CONTACT_SUCCESS:
+      return state.filter((contact) => contact.id !== action.payload);
+
+    // case actionTypes.DELETE:
+    //   return state.filter((contact) => contact.id !== action.payload.id);
 
     default:
       return state;
@@ -40,5 +43,5 @@ const alert = (state = false, action) => {
 export default combineReducers({
   items,
   filter,
-  alert
+  alert,
 });

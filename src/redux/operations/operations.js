@@ -1,24 +1,29 @@
 import axios from "axios";
 import contactsActions from "../contacts/contactsActions";
 
-const onAddContact = contact => dispatch => {
+const onAddContact = (contact) => (dispatch) => {
   dispatch(contactsActions.addContactRequest());
   axios
     .post("https://hwasync-redux-bc22.firebaseio.com/contacts.json", contact)
-    .then(res => {
+    .then((res) => {
       console.log("res onAddContact", res);
-      dispatch(contactsActions.addContactSuccess({ id: res.data.name, ...JSON.parse(res.config.data) }));
+      dispatch(
+        contactsActions.addContactSuccess({
+          id: res.data.name,
+          ...JSON.parse(res.config.data),
+        })
+      );
     })
-    .catch(error => {
+    .catch((error) => {
       dispatch(contactsActions.addContactError(error));
     });
 };
 
-const onFetchContacts = () => dispatch => {
+const onFetchContacts = () => (dispatch) => {
   dispatch(contactsActions.fetchContactRequest());
   axios
     .get("https://hwasync-redux-bc22.firebaseio.com/contacts.json")
-    .then(res => {
+    .then((res) => {
       console.log("fetch", res);
 
       const keys = Object.keys(res.data);
@@ -30,15 +35,28 @@ const onFetchContacts = () => dispatch => {
         contacts.push(contact);
       }
 
-      console.log("contacts", contacts);
+      // console.log("contacts", contacts);
       dispatch(contactsActions.fetchContactSuccess(contacts));
     })
-    .catch(error => {
+    .catch((error) => {
       dispatch(contactsActions.fetchContactError(error));
+    });
+};
+
+const onRemoveContact = (id) => (dispatch) => {
+  dispatch(contactsActions.removeContactRequest());
+  axios
+    .delete(`https://hwasync-redux-bc22.firebaseio.com/${id}.json`)
+    .then(() => {
+      dispatch(contactsActions.removeContactSuccess(id));
+    })
+    .catch((error) => {
+      dispatch(contactsActions.removeContactError(error));
     });
 };
 
 export default {
   onAddContact,
-  onFetchContacts
+  onFetchContacts,
+  onRemoveContact,
 };

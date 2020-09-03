@@ -1,78 +1,94 @@
-import { v4 as uuidv4 } from "uuid";
+// import { v4 as uuidv4 } from "uuid";
 import actionTypes from "./contactsActionTypes";
 
 const addContactRequest = () => {
   return {
-    type: actionTypes.ADD_CONTACT_REQUEST
+    type: actionTypes.ADD_CONTACT_REQUEST,
   };
 };
 
-const addContactSuccess = contact => {
+const addContactSuccess = (contact) => {
   return {
     type: actionTypes.ADD_CONTACT_SUCCESS,
     payload: {
-      ...contact
-    }
+      ...contact,
+    },
   };
 };
 
-const addContactError = contact => {
+const addContactError = (error) => {
   return {
     type: actionTypes.ADD_CONTACT_ERROR,
-    payload: {
-      ...contact
-    }
+    payload: { error },
   };
 };
 
 const fetchContactRequest = () => {
   return {
-    type: actionTypes.FETCH_CONTACT_REQUEST
+    type: actionTypes.FETCH_CONTACT_REQUEST,
   };
 };
 
-const fetchContactSuccess = contacts => {
+const fetchContactSuccess = (contacts) => {
   return {
     type: actionTypes.FETCH_CONTACT_SUCCESS,
-    payload: contacts
+    payload: contacts,
   };
 };
 
-const fetchContactError = contact => {
+const fetchContactError = (error) => {
   return {
     type: actionTypes.FETCH_CONTACT_ERROR,
-    payload: {
-      ...contact
-    }
+    payload: { error },
   };
 };
 
-const addContact = ({ name, number }) => ({
-  type: actionTypes.ADD,
-  payload: {
-    id: uuidv4(),
-    name,
-    number
-  }
-});
+const removeContactRequest = () => {
+  return {
+    type: actionTypes.REMOVE_CONTACT_REQUEST,
+  };
+};
 
-const deleteContact = id => ({
-  type: actionTypes.DELETE,
-  payload: { id }
-});
+const removeContactSuccess = (id) => {
+  return {
+    type: actionTypes.REMOVE_CONTACT_SUCCESS,
+    payload: id,
+  };
+};
 
-const changeFilter = filter => ({
+const removeContactError = (error) => {
+  return {
+    type: actionTypes.REMOVE_CONTACT_ERROR,
+    payload: { error },
+  };
+};
+
+// const addContact = ({ name, number }) => ({
+//   type: actionTypes.ADD,
+//   payload: {
+//     id: uuidv4(),
+//     name,
+//     number,
+//   },
+// });
+
+// const deleteContact = (id) => ({
+//   type: actionTypes.DELETE,
+//   payload: { id },
+// });
+
+const changeFilter = (filter) => ({
   type: actionTypes.FILTER,
-  payload: { filter }
+  payload: { filter },
 });
 
 const showAlert = () => ({
-  type: actionTypes.ALERT
+  type: actionTypes.ALERT,
 });
 
 export default {
-  addContact,
-  deleteContact,
+  // addContact,
+  // deleteContact,
   changeFilter,
   showAlert,
   addContactRequest,
@@ -80,5 +96,8 @@ export default {
   addContactError,
   fetchContactRequest,
   fetchContactSuccess,
-  fetchContactError
+  fetchContactError,
+  removeContactRequest,
+  removeContactSuccess,
+  removeContactError,
 };
