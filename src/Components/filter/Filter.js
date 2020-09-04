@@ -14,7 +14,7 @@ const Filter = ({ filter, getFilter }) => {
             type="text"
             name="filter"
             value={filter}
-            onChange={(e) => {
+            onChange={e => {
               getFilter(e.target.value);
             }}
           />
@@ -24,14 +24,17 @@ const Filter = ({ filter, getFilter }) => {
   );
 };
 
-const mapStateToProps = (state) => {
+const mapStateToProps = state => {
   return {
-    filter: state.contacts.filter,
+    filter: state.contacts.filter
   };
 };
 
-const mapDispatchToProps = (dispatch) => ({
-  getFilter: (filter) => dispatch(actions.changeFilter(filter)),
+const mapDispatchToProps = dispatch => ({
+  getFilter: filter => dispatch(actions.changeFilter(filter))
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(Filter);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Filter);

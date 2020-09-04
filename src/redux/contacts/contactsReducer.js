@@ -10,7 +10,7 @@ const items = (state = [], action) => {
       return action.payload;
 
     case actionTypes.REMOVE_CONTACT_SUCCESS:
-      return state.filter((contact) => contact.id !== action.payload);
+      return state.filter(contact => contact.id !== action.payload);
 
     // case actionTypes.DELETE:
     //   return state.filter((contact) => contact.id !== action.payload.id);
@@ -40,8 +40,47 @@ const alert = (state = false, action) => {
   }
 };
 
+const loading = (state = false, action) => {
+  switch (action.type) {
+    case actionTypes.ADD_CONTACT_REQUEST:
+    case actionTypes.FETCH_CONTACT_REQUEST:
+    case actionTypes.REMOVE_CONTACT_REQUEST:
+      return true;
+
+    case actionTypes.ADD_CONTACT_SUCCESS:
+    case actionTypes.ADD_CONTACT_ERROR:
+    case actionTypes.FETCH_CONTACT_SUCCESS:
+    case actionTypes.FETCH_CONTACT_ERROR:
+    case actionTypes.REMOVE_CONTACT_SUCCESS:
+    case actionTypes.REMOVE_CONTACT_ERROR:
+      return false;
+
+    default:
+      return state;
+  }
+};
+
+const error = (state = null, action) => {
+  switch (action.type) {
+    case actionTypes.ADD_CONTACT_ERROR:
+    case actionTypes.FETCH_CONTACT_ERROR:
+    case actionTypes.REMOVE_CONTACT_ERROR:
+      return action.payload;
+
+    case actionTypes.ADD_CONTACT_REQUEST:
+    case actionTypes.FETCH_CONTACT_REQUEST:
+    case actionTypes.REMOVE_CONTACT_REQUEST:
+      return null;
+
+    default:
+      return state;
+  }
+};
+
 export default combineReducers({
   items,
   filter,
   alert,
+  loading,
+  error
 });

@@ -3,63 +3,63 @@ import actionTypes from "./contactsActionTypes";
 
 const addContactRequest = () => {
   return {
-    type: actionTypes.ADD_CONTACT_REQUEST,
+    type: actionTypes.ADD_CONTACT_REQUEST
   };
 };
 
-const addContactSuccess = (contact) => {
+const addContactSuccess = contact => {
   return {
     type: actionTypes.ADD_CONTACT_SUCCESS,
     payload: {
-      ...contact,
-    },
+      ...contact
+    }
   };
 };
 
-const addContactError = (error) => {
+const addContactError = error => {
   return {
     type: actionTypes.ADD_CONTACT_ERROR,
-    payload: { error },
+    payload: { error }
   };
 };
 
 const fetchContactRequest = () => {
   return {
-    type: actionTypes.FETCH_CONTACT_REQUEST,
+    type: actionTypes.FETCH_CONTACT_REQUEST
   };
 };
 
-const fetchContactSuccess = (contacts) => {
+const fetchContactSuccess = contacts => {
   return {
     type: actionTypes.FETCH_CONTACT_SUCCESS,
-    payload: contacts,
+    payload: contacts
   };
 };
 
-const fetchContactError = (error) => {
+const fetchContactError = error => {
   return {
     type: actionTypes.FETCH_CONTACT_ERROR,
-    payload: { error },
+    payload: { error }
   };
 };
 
 const removeContactRequest = () => {
   return {
-    type: actionTypes.REMOVE_CONTACT_REQUEST,
+    type: actionTypes.REMOVE_CONTACT_REQUEST
   };
 };
 
-const removeContactSuccess = (id) => {
+const removeContactSuccess = id => {
   return {
     type: actionTypes.REMOVE_CONTACT_SUCCESS,
-    payload: id,
+    payload: id
   };
 };
 
-const removeContactError = (error) => {
+const removeContactError = error => {
   return {
     type: actionTypes.REMOVE_CONTACT_ERROR,
-    payload: { error },
+    payload: { error }
   };
 };
 
@@ -77,13 +77,28 @@ const removeContactError = (error) => {
 //   payload: { id },
 // });
 
-const changeFilter = (filter) => ({
+const changeFilter = filter => ({
   type: actionTypes.FILTER,
-  payload: { filter },
+  payload: { filter }
 });
 
 const showAlert = () => ({
-  type: actionTypes.ALERT,
+  type: actionTypes.ALERT
+});
+
+const showAddError = error => ({
+  type: actionTypes.ERROR_REQUEST,
+  payload: error
+});
+
+const showFetchError = error => ({
+  type: actionTypes.ERROR_REQUEST,
+  payload: error
+});
+
+const showRemoveError = error => ({
+  type: actionTypes.ERROR_REQUEST,
+  payload: error
 });
 
 export default {
@@ -91,6 +106,9 @@ export default {
   // deleteContact,
   changeFilter,
   showAlert,
+  showAddError,
+  showFetchError,
+  showRemoveError,
   addContactRequest,
   addContactSuccess,
   addContactError,
@@ -99,5 +117,5 @@ export default {
   fetchContactError,
   removeContactRequest,
   removeContactSuccess,
-  removeContactError,
+  removeContactError
 };
